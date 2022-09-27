@@ -7,6 +7,7 @@ public class HitboxManager : MonoBehaviour
 
     public static HitboxManager Instance;
     private List<Hitbox> Hitboxes;
+    private int nextHitboxId = 0;
     // Start is called before the first frame update
     void Start(){
 
@@ -30,5 +31,9 @@ public class HitboxManager : MonoBehaviour
 
     public void addCollision(Hitbox hitbox){
         Hitboxes.Add(hitbox);
+    }
+
+    public int getNextHitboxId(){
+        return nextHitboxId++;
     }
 }

@@ -23,7 +23,7 @@ public class CollisionManager : MonoBehaviour
     void Update(){
         foreach(Hitbox hitbox in HitboxManager.Instance.getHitboxes()){
             foreach(Hitbox candidate in HitboxManager.Instance.getHitboxes()){
-                if(hitbox.intersect(candidate)){
+                if(hitbox.getId() != candidate.getId() && hitbox.intersect(candidate)){
                     Collision collision = hitbox.getCollisionInfo(candidate);
                     addCollision(collision);
                 }
