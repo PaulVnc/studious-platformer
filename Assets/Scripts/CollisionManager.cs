@@ -6,7 +6,7 @@ public class CollisionManager : MonoBehaviour
 {
 
     public static CollisionManager Instance;
-    private vector<Collision> Collisions;
+    private List<Collision> Collisions;
     // Start is called before the first frame update
     void Start(){
 
@@ -14,7 +14,7 @@ public class CollisionManager : MonoBehaviour
         if(Instance == null){ 
             Instance = this;
         }else{
-            this.destroy;
+            Destroy(this);
         }
 
     }
@@ -31,11 +31,11 @@ public class CollisionManager : MonoBehaviour
         }
     }
 
-    public vector<Collision> getCollisions(){
+    public List<Collision> getCollisions(){
         return Collisions;
     }
 
     public void addCollision(Collision collision){
-        Collision.push_back(collision);
+        Collisions.Add(collision);
     }
 }

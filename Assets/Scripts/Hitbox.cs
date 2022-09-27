@@ -30,7 +30,7 @@ public class Hitbox : MonoBehaviour
         
         if(this.xMin < other.xMin){
             if(this.xMax > other.xMax){
-                x1 = other.xMin,
+                x1 = other.xMin;
                 x2 = other.xMax;
             }else{
                 x1 = other.xMin;
@@ -48,7 +48,7 @@ public class Hitbox : MonoBehaviour
 
         if(this.yMin < other.yMin){
             if(this.yMax > other.yMax){
-                y1 = other.yMin,
+                y1 = other.yMin;
                 y2 = other.yMax;
             }else{
                 y1 = other.yMin;
@@ -68,15 +68,15 @@ public class Hitbox : MonoBehaviour
         float y = (y1+y2)/2;
         Vector2 n;
         if(this.yMin > other.yMax){
-            n = Vector2(0,1);
+            n = new Vector2(0,1);
         }
         else if(this.yMax < other.yMin){
-            n = Vector2(0,-1);
+            n = new Vector2(0,-1);
         }
         else{
-            n = (this.xMax>other.xMin)?Vector2(-1,0):Vector2(1,0);
+            n = (this.xMax>other.xMin)? new Vector2(-1,0): new Vector2(1,0);
         }
-        Collision collision(x,y,n);
+        Collision collision = new Collision(x,y,n);
         return collision;
     }
 }

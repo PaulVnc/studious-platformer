@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class CollisionLayerEnum : MonoBehaviour
 {
-    public enum CollisionLayer = {Platform, Player, Ennemy, World, Bullet};
+    public enum CollisionLayer {Platform, Player, Ennemy, World, Bullet};
 }

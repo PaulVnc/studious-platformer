@@ -7,7 +7,7 @@ public class Collision : MonoBehaviour
     private float x;
     private float y;
     private Vector2 normal;
-    Collision(float x, float y, Vector2 normal){
+    public Collision(float x, float y, Vector2 normal){
         this.x = x;
         this.y = y;
         this.normal = normal;

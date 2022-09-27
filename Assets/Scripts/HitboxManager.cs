@@ -6,7 +6,7 @@ public class HitboxManager : MonoBehaviour
 {
 
     public static HitboxManager Instance;
-    private vector<Hitbox> Hitboxes;
+    private List<Hitbox> Hitboxes;
     // Start is called before the first frame update
     void Start(){
 
@@ -14,7 +14,7 @@ public class HitboxManager : MonoBehaviour
         if(Instance == null){ 
             Instance = this;
         }else{
-            this.destroy;
+            Destroy(this);
         }
 
     }
@@ -24,11 +24,11 @@ public class HitboxManager : MonoBehaviour
         
     }
 
-    public vector<Hitbox> getHitboxes(){
+    public List<Hitbox> getHitboxes(){
         return Hitboxes;
     }
 
     public void addCollision(Hitbox hitbox){
-        Hitboxes.push_back(hitbox);
+        Hitboxes.Add(hitbox);
     }
 }
