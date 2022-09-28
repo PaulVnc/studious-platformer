@@ -6,9 +6,9 @@ public class CollisionManager : MonoBehaviour
 {
 
     public static CollisionManager Instance;
-    private List<Collision> Collisions;
+    private List<Collision> Collisions = new List<Collision>();
     // Start is called before the first frame update
-    void Start(){
+    void Awake(){
 
         // SINGLETON
         if(Instance == null){ 
@@ -24,6 +24,7 @@ public class CollisionManager : MonoBehaviour
         foreach(Hitbox hitbox in HitboxManager.Instance.getHitboxes()){
             foreach(Hitbox candidate in HitboxManager.Instance.getHitboxes()){
                 if(hitbox.getId() != candidate.getId() && hitbox.intersect(candidate)){
+                    Debug.Log("Collision");
                     Collision collision = hitbox.getCollisionInfo(candidate);
                     addCollision(collision);
                 }
@@ -37,5 +38,6 @@ public class CollisionManager : MonoBehaviour
 
     public void addCollision(Collision collision){
         Collisions.Add(collision);
+        Debug.Log("oui");
     }
 }

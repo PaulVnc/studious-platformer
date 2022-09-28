@@ -26,9 +26,6 @@ public class Movement : MonoBehaviour
             Debug.Log("Jump !");
             jump();
         }
-        if (Input.GetAxisRaw("Debug")>0) {
-            changeGrounded();
-        }
     }
     void moveHorizontally(float direction)
     {

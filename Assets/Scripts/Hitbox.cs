@@ -6,16 +6,33 @@ public class Hitbox : MonoBehaviour
 {
     private CollisionLayerEnum layer;
     private float xMin, yMin, xMax, yMax;
+    private float oldxMin, oldyMin, oldxMax, oldyMax;
+    private float w,h;
     private int id;
     // Start is called before the first frame update
     void Start()
     {
         this.id = HitboxManager.Instance.getNextHitboxId();
+        HitboxManager.Instance.addHitbox(this);
+        w = transform.localScale.x;
+        h = transform.localScale.y;
+        xMin = transform.position.x - w/2;
+        xMax = transform.position.x + w/2;
+        yMin = transform.position.y - h/2;
+        yMax = transform.position.y + h/2;
     }
 
     // Update is called once per frame
-    void Update()
+    void fixedUpdate()
     {
+        oldxMin = xMin;
+        oldyMin = yMin;
+        oldxMax = xMax;
+        oldyMax = yMax;
+        xMin = transform.position.x - w/2;
+        xMax = transform.position.x + w/2;
+        yMin = transform.position.y - h/2;
+        yMax = transform.position.y + h/2;
 
     }
 
@@ -72,14 +89,14 @@ public class Hitbox : MonoBehaviour
         float x = (x1+x2)/2;
         float y = (y1+y2)/2;
         Vector2 n;
-        if(this.yMin > other.yMax){
+        if(this.oldyMin > other.oldyMax){
             n = new Vector2(0,1);
         }
-        else if(this.yMax < other.yMin){
+        else if(this.oldyMax < other.oldyMin){
             n = new Vector2(0,-1);
         }
         else{
-            n = (this.xMax>other.xMin)? new Vector2(-1,0): new Vector2(1,0);
+            n = (this.oldxMax>other.oldxMin)? new Vector2(-1,0): new Vector2(1,0);
         }
         Collision collision = new Collision(x,y,n);
         return collision;

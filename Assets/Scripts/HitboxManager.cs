@@ -6,11 +6,10 @@ public class HitboxManager : MonoBehaviour
 {
 
     public static HitboxManager Instance;
-    private List<Hitbox> Hitboxes;
+    private List<Hitbox> Hitboxes = new List<Hitbox>();
     private int nextHitboxId = 0;
     // Start is called before the first frame update
-    void Start(){
-
+    void Awake(){
         // SINGLETON
         if(Instance == null){ 
             Instance = this;
@@ -20,16 +19,11 @@ public class HitboxManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update(){
-        
-    }
-
     public List<Hitbox> getHitboxes(){
         return Hitboxes;
     }
 
-    public void addCollision(Hitbox hitbox){
+    public void addHitbox(Hitbox hitbox){
         Hitboxes.Add(hitbox);
     }
 
