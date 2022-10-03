@@ -31,8 +31,17 @@ public class Movement : MonoBehaviour
     }
     void moveHorizontally(float direction)
     {
+        
          Vector3 position = transform.position;
-         position.x += direction * playerSpeed * Time.deltaTime;
+        if (isCollidingLeftWall && direction <0)
+        {
+            direction = 0;
+        }
+        if (isCollidingRightWall && direction > 0)
+        {
+            direction = 0;
+        }
+        position.x += direction * playerSpeed * Time.deltaTime;
          transform.position = position;
     }
 
@@ -46,8 +55,6 @@ public class Movement : MonoBehaviour
             changeGrounded();
         }
     }
-
-    //Can delete
     void changeGrounded()
     {
         isGrounded = !isGrounded;
