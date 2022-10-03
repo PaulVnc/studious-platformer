@@ -73,4 +73,11 @@ public class Physics : MonoBehaviour
     {
         speed.y = 0f;
     }
+
+    //Function to call when colliding on the ceiling
+    public void ceilingBlock()
+    {
+        speed.y = 0f;
+        acceleration.y = 0f;
+    }
 }

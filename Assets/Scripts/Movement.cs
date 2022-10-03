@@ -58,6 +58,31 @@ public class Movement : MonoBehaviour
     void changeGrounded()
     {
         isGrounded = !isGrounded;
+        if (isGrounded)
+        {
+            physics.grounded();
+        }
+    }
+    public void collideLeftWall()
+    {
+        isCollidingLeftWall = true;
+    }
+    public void collideRightWall()
+    {
+        isCollidingLeftWall = true;
+    }
+    public void stopWallColliding()
+    { 
+        isCollidingLeftWall=false;
+        isCollidingRightWall=false;
+    }
+    public void collideCeiling()
+    {
+        physics.ceilingBlock();
+    }
+    public void collideGround()
+    {
+        isGrounded=true;
         physics.grounded();
     }
 }
