@@ -5,7 +5,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public bool isGrounded = true;
-    public bool isCollidingOnAWall = false;
+    public bool isCollidingLeftWall = false; //Boolean to change when colliding on a wall placed on the left
+    public bool isCollidingRightWall = false; //Boolean to change when colliding on a wall placed on the right
     [SerializeField] float playerSpeed = 1f;
     [SerializeField] float jumpForce = 300f;
     private Physics physics;
