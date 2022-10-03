@@ -27,6 +27,7 @@ public class Physics : MonoBehaviour
     void physicUpdate()
     {
         applyGravity();
+        applyWallCollision();
         speed +=  acceleration * Time.fixedDeltaTime;
         Debug.Log(speed);
         transform.position += speed * Time.fixedDeltaTime;
@@ -68,6 +69,20 @@ public class Physics : MonoBehaviour
             addForce(new Vector3(0, -gravity, 0));
         }
     }
+    void applyWallCollision()
+    {
+        if (movement.isCollidingLeftWall && acceleration.x <0 )
+        {
+            acceleration.x = 0;
+            speed.x = 0f;
+        }
+        if (movement.isCollidingRightWall && acceleration.x > 0)
+        {
+            acceleration.x = 0;
+            speed.x = 0f;
+        }
+    }
+    //Function to call when colliding on the ground
     public void grounded()
     {
         speed.y = 0f;

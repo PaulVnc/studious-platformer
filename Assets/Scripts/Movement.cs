@@ -5,6 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public bool isGrounded = true;
+    public bool isCollidingOnAWall = false;
     [SerializeField] float playerSpeed = 1f;
     [SerializeField] float jumpForce = 300f;
     private Physics physics;
@@ -21,7 +22,7 @@ public class Movement : MonoBehaviour
     void Update()
     {
         moveHorizontally(Input.GetAxis("Horizontal"));
-        if (Input.GetAxis("Jump")>0)
+        if (Input.GetButtonDown("Jump"))
         {
             Debug.Log("Jump !");
             jump();
