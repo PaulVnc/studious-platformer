@@ -27,7 +27,7 @@ public class CollisionManager : MonoBehaviour
                 if(playerHitbox.getId() != candidate.getId() && playerHitbox.intersect(candidate)){
                     Collision collision = playerHitbox.getCollisionInfo(candidate);
                     Vector2 n = collision.getNormal();
-                    Debug.Log("Normal:" + n);
+                Debug.Log("Collisions :" + candidate.getId());
                     if(n == new Vector2(0,1)){
                         player.GetComponent<Movement>().collideGround();
                     }
@@ -35,16 +35,21 @@ public class CollisionManager : MonoBehaviour
                         player.GetComponent<Movement>().collideCeiling();
                     }
                     if(n== new Vector2(1,0)){
+                        Debug.Log("Collide left wall");
                         player.GetComponent<Movement>().collideLeftWall();
                     }   
                     if(n== new Vector2(-1,0)){
-                        player.GetComponent<Movement>().collideRightWall();
+                    Debug.Log("Collide right wall");
+                    player.GetComponent<Movement>().collideRightWall();
                     }
                 }
             }
         HitboxManager.Instance.updateHitboxesPosition();
     }
-
+    public void Update()
+    {
+        Collisions.Clear();
+    }
     public List<Collision> getCollisions(){
         return Collisions;
     }

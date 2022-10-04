@@ -91,7 +91,7 @@ public class Movement : MonoBehaviour
     public void collideRightWall()
     {
         physics.wallBlock();
-        isCollidingLeftWall = true;
+        isCollidingRightWall = true;
     }
     public void stopWallColliding()
     {
