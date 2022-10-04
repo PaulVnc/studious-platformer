@@ -9,6 +9,7 @@ public class CollisionManager : MonoBehaviour
     private List<Collision> Collisions = new List<Collision>();
     [SerializeField]
     private GameObject player;
+    private Hitbox playerHitbox;
     // Start is called before the first frame update
     void Awake(){
 
@@ -18,35 +19,30 @@ public class CollisionManager : MonoBehaviour
         }else{
             Destroy(this);
         }
-
+        playerHitbox = player.GetComponent<Hitbox>();
     }
 
     void FixedUpdate(){
-        foreach(Hitbox hitbox in HitboxManager.Instance.getHitboxes()){
             foreach(Hitbox candidate in HitboxManager.Instance.getHitboxes()){
-                if(hitbox.getId() != candidate.getId() && hitbox.intersect(candidate)){
-                    Debug.Log("Collision");
-                    Collision collision = hitbox.getCollisionInfo(candidate);
-                    addCollision(collision);    
-                    if(hitbox.layer == CollisionLayerEnum.Layer.Player){
-                        Vector2 n = collision.getNormal();
-                        Debug.Log("Normal:" + n);
-                        if(n == new Vector2(0,1)){
-                            player.GetComponent<Movement>().collideGround();
-                        }
-                        if(n== new Vector2(0,-1)){
-                            player.GetComponent<Movement>().collideCeiling();
-                        }
-                        if(n== new Vector2(1,0)){
-                            player.GetComponent<Movement>().collideLeftWall();
-                        }
-                        if(n== new Vector2(-1,0)){
-                            player.GetComponent<Movement>().collideRightWall();
-                        }
-                    }       
+                if(playerHitbox.getId() != candidate.getId() && playerHitbox.intersect(candidate)){
+                    Collision collision = playerHitbox.getCollisionInfo(candidate);
+                    Vector2 n = collision.getNormal();
+                    Debug.Log("Normal:" + n);
+                    if(n == new Vector2(0,1)){
+                        player.GetComponent<Movement>().collideGround();
+                    }
+                    if(n== new Vector2(0,-1)){
+                        player.GetComponent<Movement>().collideCeiling();
+                    }
+                    if(n== new Vector2(1,0)){
+                        player.GetComponent<Movement>().collideLeftWall();
+                    }   
+                    if(n== new Vector2(-1,0)){
+                        player.GetComponent<Movement>().collideRightWall();
+                    }
                 }
             }
-        }
+        HitboxManager.Instance.updateHitboxesPosition();
     }
 
     public List<Collision> getCollisions(){

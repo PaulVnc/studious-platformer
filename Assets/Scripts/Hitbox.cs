@@ -29,15 +29,17 @@ public class Hitbox : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        oldxMin = xMin;
-        oldyMin = yMin;
-        oldxMax = xMax;
-        oldyMax = yMax;
         xMin = transform.position.x - w/2;
         xMax = transform.position.x + w/2;
         yMin = transform.position.y - h/2;
         yMax = transform.position.y + h/2;
+    }
 
+    public void updatePosition(){
+        oldxMin = xMin;
+        oldyMin = yMin;
+        oldxMax = xMax;
+        oldyMax = yMax;
     }
 
     public int getId(){
@@ -93,14 +95,14 @@ public class Hitbox : MonoBehaviour
         float x = (x1+x2)/2;
         float y = (y1+y2)/2;
         Vector2 n;
-        if(this.oldyMin+2> other.oldyMax){
+        if(this.oldyMin > other.oldyMax){
             n = new Vector2(0,1);
         }
-        else if(this.yMax < other.oldyMin){
+        else if(this.oldyMax < other.oldyMin){
             n = new Vector2(0,-1);
         }
         else{
-            n = (this.oldxMax>other.oldxMin)? new Vector2(-1,0): new Vector2(1,0);
+            n = (this.oldxMin>other.oldxMax)? new Vector2(-1,0): new Vector2(1,0);
         }
         Collision collision = new Collision(x,y,n);
         return collision;

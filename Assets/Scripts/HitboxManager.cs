@@ -30,4 +30,10 @@ public class HitboxManager : MonoBehaviour
     public int getNextHitboxId(){
         return nextHitboxId++;
     }
+
+    public void updateHitboxesPosition(){
+        foreach(Hitbox hitbox in getHitboxes()){
+            hitbox.updatePosition();
+        }
+    }
 }
