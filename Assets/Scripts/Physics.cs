@@ -60,6 +60,13 @@ public class Physics : MonoBehaviour
     {
         acceleration += force;
     }
+
+    //A mettre dans addForce et changer applyGravity ???
+    public void resetY()
+    {
+        acceleration.y = 0f;
+        speed.y = 0f;
+    }
     void applyGravity()
     {
         if (!movement.isGrounded)
@@ -79,5 +86,10 @@ public class Physics : MonoBehaviour
     {
         speed.y = 0f;
         acceleration.y = 0f;
+    }
+    public void wallBlock()
+    {
+        acceleration.x = 0f;
+        speed.x = 0f;
     }
 }

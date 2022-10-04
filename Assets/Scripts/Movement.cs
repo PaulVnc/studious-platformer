@@ -9,6 +9,8 @@ public class Movement : MonoBehaviour
     public bool isCollidingRightWall = false; //Boolean to change when colliding on a wall placed on the right
     [SerializeField] float playerSpeed = 1f;
     [SerializeField] float jumpForce = 300f;
+    [SerializeField] float wallJumpHorizontalForce = 100f;
+    [SerializeField] float wallJumpVerticalForce = 200f;
     private Physics physics;
      
 
@@ -25,7 +27,6 @@ public class Movement : MonoBehaviour
         moveHorizontally(Input.GetAxis("Horizontal"));
         if (Input.GetButtonDown("Jump"))
         {
-            Debug.Log("Jump !");
             jump();
         }
     }
@@ -49,10 +50,30 @@ public class Movement : MonoBehaviour
     {
         if (isGrounded)
         {
-            Vector3 position = transform.position;
-            physics.addForce(new Vector3(0, jumpForce, 0));
-            transform.position = position;
+            Debug.Log("Jump");
             changeGrounded();
+            physics.addForce(new Vector3(0, jumpForce, 0));
+            
+        }
+        //Wall jump to the right
+        else
+        {
+            if (!isGrounded && isCollidingLeftWall)
+            {
+                physics.resetY();
+                Debug.Log("WallJump to the right");
+                stopWallColliding();
+                physics.addForce(new Vector3(wallJumpHorizontalForce, wallJumpVerticalForce, 0));
+
+            }
+            if (!isGrounded && isCollidingRightWall)
+            {
+                physics.resetY();
+                Debug.Log("WallJump to the left");
+                stopWallColliding();
+                physics.addForce(new Vector3(-wallJumpHorizontalForce, wallJumpVerticalForce, 0));
+
+            }
         }
     }
     void changeGrounded()
@@ -65,14 +86,17 @@ public class Movement : MonoBehaviour
     }
     public void collideLeftWall()
     {
+        physics.wallBlock();
         isCollidingLeftWall = true;
     }
     public void collideRightWall()
     {
+        physics.wallBlock();
         isCollidingLeftWall = true;
     }
     public void stopWallColliding()
-    { 
+    {
+        
         isCollidingLeftWall=false;
         isCollidingRightWall=false;
     }

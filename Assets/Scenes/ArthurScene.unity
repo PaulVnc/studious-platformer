@@ -237,11 +237,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3212224771122866667, guid: 033fc5d5bbf4f4849a6974789ee1e43e, type: 3}
       propertyPath: jumpForce
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: -3212224771122866667, guid: 033fc5d5bbf4f4849a6974789ee1e43e, type: 3}
       propertyPath: playerSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3212224771122866667, guid: 033fc5d5bbf4f4849a6974789ee1e43e, type: 3}
+      propertyPath: isCollidingLeftWall
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6296807538671203242, guid: 033fc5d5bbf4f4849a6974789ee1e43e, type: 3}
       propertyPath: m_Name
