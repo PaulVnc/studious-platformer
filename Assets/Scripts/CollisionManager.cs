@@ -35,12 +35,19 @@ public class CollisionManager : MonoBehaviour
                         player.GetComponent<Movement>().collideCeiling();
                     }
                     if(n== new Vector2(1,0)){
+<<<<<<< Updated upstream
                         Debug.Log("Collide left wall");
                         player.GetComponent<Movement>().collideLeftWall();
                     }   
                     if(n== new Vector2(-1,0)){
                     Debug.Log("Collide right wall");
                     player.GetComponent<Movement>().collideRightWall();
+=======
+                        player.GetComponent<Movement>().collideRightWall();
+                    }   
+                    if(n== new Vector2(-1,0)){
+                        player.GetComponent<Movement>().collideLeftWall();
+>>>>>>> Stashed changes
                     }
                 }
             }
