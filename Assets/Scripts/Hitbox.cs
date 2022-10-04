@@ -47,10 +47,7 @@ public class Hitbox : MonoBehaviour
     }
 
     public bool intersect(Hitbox candidate){
-        return (this.xMin < candidate.xMin && this.xMax > candidate.xMin && (this.yMin < candidate.yMin && this.yMax > candidate.yMin
-            || this.yMax > candidate.yMin && this.yMax < candidate.yMax)
-            || this.xMin > candidate.xMin && this.xMin < candidate.xMax && (this.yMin < candidate.yMin && this.yMax > candidate.yMin
-            || this.yMax > candidate.yMin && this.yMax < candidate.yMax));
+        return ((this.xMin < candidate.xMin && this.xMax > candidate.xMin || this.xMin > candidate.xMin && this.xMin < candidate.xMax) && (this.yMin < candidate.yMax && this.yMax > candidate.yMin));
     }
 
     public Collision getCollisionInfo(Hitbox other){
@@ -102,7 +99,7 @@ public class Hitbox : MonoBehaviour
             n = new Vector2(0,-1);
         }
         else{
-            n = (this.oldxMin>other.oldxMax)? new Vector2(-1,0): new Vector2(1,0);
+            n = (this.oldxMin>other.oldxMax)? new Vector2(1,0): new Vector2(-1,0);
         }
         Collision collision = new Collision(x,y,n);
         return collision;

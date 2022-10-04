@@ -95,7 +95,6 @@ public class Movement : MonoBehaviour
     }
     public void stopWallColliding()
     {
-        
         isCollidingLeftWall=false;
         isCollidingRightWall=false;
     }

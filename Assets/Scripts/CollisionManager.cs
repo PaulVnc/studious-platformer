@@ -51,6 +51,5 @@ public class CollisionManager : MonoBehaviour
 
     public void addCollision(Collision collision){
         Collisions.Add(collision);
-        Debug.Log("oui");
     }
 }
