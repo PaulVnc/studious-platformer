@@ -47,7 +47,7 @@ public class Hitbox : MonoBehaviour
     }
 
     public bool intersect(Hitbox candidate){
-        return ((this.xMin < candidate.xMin && this.xMax > candidate.xMin || this.xMin > candidate.xMin && this.xMin < candidate.xMax) && (this.yMin < candidate.yMax && this.yMax > candidate.yMin));
+        return ((this.xMin < candidate.xMax && this.xMax > candidate.xMin) && (this.yMin < candidate.yMax && this.yMax > candidate.yMin));
     }
 
     public Collision getCollisionInfo(Hitbox other){
