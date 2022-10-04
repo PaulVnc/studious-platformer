@@ -12,15 +12,9 @@ public class Collision
         this.y = y;
         this.normal = normal;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+    public Vector2 getNormal(){
+        return this.normal;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 9191449344645939198}
   - component: {fileID: 5131099932959919515}
   - component: {fileID: 48765322672177641}
-  - component: {fileID: 1928367261922627224}
   - component: {fileID: -3212224771122866667}
+  - component: {fileID: 5608972788294925154}
+  - component: {fileID: 3293700193035325491}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -85,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1928367261922627224
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6296807538671203242}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-3212224771122866667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,3 +98,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e4c6db3ef9b0c4cbee0b8a3c46120b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 1
+  isCollidingLeftWall: 0
+  isCollidingRightWall: 0
+  playerSpeed: 1
+  jumpForce: 300
+--- !u!114 &5608972788294925154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296807538671203242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 992fb4a7e93869d46b2a14bff29520d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 10
+  constantAcceleration: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
+  speed: {x: 0, y: 0, z: 0}
+--- !u!114 &3293700193035325491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296807538671203242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61299215239c064387fb273676379e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer: 1

@@ -32,8 +32,7 @@ public class Movement : MonoBehaviour
     }
     void moveHorizontally(float direction)
     {
-        
-         Vector3 position = transform.position;
+        Vector3 position = transform.position;
         if (isCollidingLeftWall && direction <0)
         {
             direction = 0;
@@ -43,7 +42,7 @@ public class Movement : MonoBehaviour
             direction = 0;
         }
         position.x += direction * playerSpeed * Time.deltaTime;
-         transform.position = position;
+        transform.position = position;
     }
 
     void jump()

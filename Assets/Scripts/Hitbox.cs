@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
-    private CollisionLayerEnum layer;
+    [SerializeField]
+    public CollisionLayerEnum.Layer layer;
+    [SerializeField]
     private float xMin, yMin, xMax, yMax;
+    [SerializeField]
     private float oldxMin, oldyMin, oldxMax, oldyMax;
+    [SerializeField]
     private float w,h;
     private int id;
     // Start is called before the first frame update
@@ -23,7 +27,7 @@ public class Hitbox : MonoBehaviour
     }
 
     // Update is called once per frame
-    void fixedUpdate()
+    void FixedUpdate()
     {
         oldxMin = xMin;
         oldyMin = yMin;
@@ -41,9 +45,9 @@ public class Hitbox : MonoBehaviour
     }
 
     public bool intersect(Hitbox candidate){
-        return (this.xMin < candidate.xMin && this.xMax > candidate.xMin && (this.yMin > candidate.yMin && this.yMax > candidate.yMin
+        return (this.xMin < candidate.xMin && this.xMax > candidate.xMin && (this.yMin < candidate.yMin && this.yMax > candidate.yMin
             || this.yMax > candidate.yMin && this.yMax < candidate.yMax)
-            || this.xMin > candidate.xMin && this.xMin < candidate.xMax && (this.yMin > candidate.yMin && this.yMax > candidate.yMin
+            || this.xMin > candidate.xMin && this.xMin < candidate.xMax && (this.yMin < candidate.yMin && this.yMax > candidate.yMin
             || this.yMax > candidate.yMin && this.yMax < candidate.yMax));
     }
 
@@ -89,10 +93,10 @@ public class Hitbox : MonoBehaviour
         float x = (x1+x2)/2;
         float y = (y1+y2)/2;
         Vector2 n;
-        if(this.oldyMin > other.oldyMax){
+        if(this.oldyMin+2> other.oldyMax){
             n = new Vector2(0,1);
         }
-        else if(this.oldyMax < other.oldyMin){
+        else if(this.yMax < other.oldyMin){
             n = new Vector2(0,-1);
         }
         else{
