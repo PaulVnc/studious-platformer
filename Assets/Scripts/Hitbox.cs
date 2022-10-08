@@ -22,7 +22,7 @@ public class Hitbox : MonoBehaviour
         h = transform.localScale.y;
         xMin = transform.position.x - w/2;
         xMax = transform.position.x + w/2;
-        yMin = transform.position.y - h/2;
+        yMin = 1.1f*(transform.position.y - h/2);
         yMax = transform.position.y + h/2;
     }
 
@@ -31,7 +31,7 @@ public class Hitbox : MonoBehaviour
     {
         xMin = transform.position.x - w/2;
         xMax = transform.position.x + w/2;
-        yMin = transform.position.y - h/2;
+        yMin = 1.1f*(transform.position.y - h/2);
         yMax = transform.position.y + h/2;
     }
 
@@ -92,16 +92,54 @@ public class Hitbox : MonoBehaviour
         float x = (x1+x2)/2;
         float y = (y1+y2)/2;
         Vector2 n;
-        if(this.oldyMin > other.oldyMax){
-            n = new Vector2(0,1);
+        if (this.oldyMin > other.oldyMax)
+        {
+            n = new Vector2(0, 1);
         }
-        else if(this.oldyMax < other.oldyMin){
-            n = new Vector2(0,-1);
+        else if (this.oldyMax < other.oldyMin)
+        {
+            n = new Vector2(0, -1);
         }
-        else{
-            n = (this.oldxMin>other.oldxMax)? new Vector2(1,0): new Vector2(-1,0);
+        else
+        {
+            float xDist = xMax - w / 2 - x;
+            float yDist = yMax - h / 2 - y;
+            if (Mathf.Abs(xDist) < Mathf.Abs(yDist))
+            {
+                xDist = 0;
+                yDist = 1 * Mathf.Sign(yDist);
+            }
+            else
+            {
+                yDist = 0;
+                xDist = 1 * Mathf.Sign(xDist);
+            }
+            n = new Vector2(xDist, yDist);
         }
+        /*else if (this.oldxMax < other.oldxMin && this.oldyMin < other.oldyMax)
+        {
+            n = new Vector2(1, 0);
+        }
+        else if (this.oldxMin > other.oldyMax && this.oldyMin < other.oldyMax)
+        {
+            n = new Vector2(-1, 0);
+        }
+        else
+        {
+            n = new Vector2(0, 0);
+        }*/
+        Debug.Log(n);
         Collision collision = new Collision(x,y,n);
+        Debug.DrawLine(new Vector3(this.xMax-w/2,this.yMax-h/2,0),new Vector3(x,y,0),Color.red);
         return collision;
+    }
+
+    public Vector2 GetMin()
+    {
+        return new Vector2(xMin, yMin);
+    }
+    public Vector2 GetMax()
+    {
+        return new Vector2(xMax, yMax);
     }
 }

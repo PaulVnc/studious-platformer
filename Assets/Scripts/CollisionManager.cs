@@ -23,34 +23,39 @@ public class CollisionManager : MonoBehaviour
     }
 
     void FixedUpdate(){
-            foreach(Hitbox candidate in HitboxManager.Instance.getHitboxes()){
-                if(playerHitbox.getId() != candidate.getId() && playerHitbox.intersect(candidate)){
-                    Collision collision = playerHitbox.getCollisionInfo(candidate);
-                    Vector2 n = collision.getNormal();
+
+        bool collideGround = false;
+        bool collideCeiling = false;
+        bool collideRightWall = false;
+        bool collideLeftWall = false;
+        foreach (Hitbox candidate in HitboxManager.Instance.getHitboxes()){
+            if(playerHitbox.getId() != candidate.getId() && playerHitbox.intersect(candidate)){
+                Collision collision = playerHitbox.getCollisionInfo(candidate);
+                Vector2 n = collision.GetNormal();
                 Debug.Log("Collisions :" + candidate.getId());
-                    if(n == new Vector2(0,1)){
-                        player.GetComponent<Movement>().collideGround();
-                    }
-                    if(n== new Vector2(0,-1)){
-                        player.GetComponent<Movement>().collideCeiling();
-                    }
-                    if(n== new Vector2(1,0)){
-<<<<<<< Updated upstream
-                        Debug.Log("Collide left wall");
-                        player.GetComponent<Movement>().collideLeftWall();
-                    }   
-                    if(n== new Vector2(-1,0)){
+                if(n == new Vector2(0,1) && player.GetComponent<Physics>().speed.y <= 0){
+                    collideGround = true;
+                }
+                if(n== new Vector2(0,-1)){
+                    collideCeiling = true;
+                }
+                if(n== new Vector2(1,0)){
+                    collideLeftWall = true;
+                    Debug.Log("Collide left wall");
+                }   
+                if(n== new Vector2(-1,0)){
+                    collideRightWall = true;
                     Debug.Log("Collide right wall");
-                    player.GetComponent<Movement>().collideRightWall();
-=======
-                        player.GetComponent<Movement>().collideRightWall();
-                    }   
-                    if(n== new Vector2(-1,0)){
-                        player.GetComponent<Movement>().collideLeftWall();
->>>>>>> Stashed changes
-                    }
                 }
             }
+        }
+        if (collideCeiling)
+        {
+            player.GetComponent<Movement>().collideCeiling();
+        }
+        player.GetComponent<Movement>().setGrounded(collideGround);
+        player.GetComponent<Movement>().setCollideLeftWall(collideLeftWall);
+        player.GetComponent<Movement>().setCollideRightWall(collideRightWall);
         HitboxManager.Instance.updateHitboxesPosition();
     }
     public void Update()

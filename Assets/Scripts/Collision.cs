@@ -13,8 +13,12 @@ public class Collision
         this.normal = normal;
     }
 
-    public Vector2 getNormal(){
+    public Vector2 GetNormal(){
         return this.normal;
     }
 
+    public Vector2 GetCoordinates()
+    {
+        return new Vector2(x, y);
+    }
 }

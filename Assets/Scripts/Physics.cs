@@ -84,8 +84,8 @@ public class Physics : MonoBehaviour
     //Function to call when colliding on the ceiling
     public void ceilingBlock()
     {
-        speed.y = 0f;
         acceleration.y = 0f;
+        speed.y = 0f;
     }
     public void wallBlock()
     {

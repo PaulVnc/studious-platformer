@@ -83,15 +83,15 @@ public class Movement : MonoBehaviour
             physics.grounded();
         }
     }
-    public void collideLeftWall()
+    public void setCollideLeftWall(bool val)
     {
         physics.wallBlock();
-        isCollidingLeftWall = true;
+        isCollidingLeftWall = val;
     }
-    public void collideRightWall()
+    public void setCollideRightWall(bool val)
     {
         physics.wallBlock();
-        isCollidingRightWall = true;
+        isCollidingRightWall = val;
     }
     public void stopWallColliding()
     {
@@ -102,9 +102,12 @@ public class Movement : MonoBehaviour
     {
         physics.ceilingBlock();
     }
-    public void collideGround()
+    public void setGrounded(bool val)
     {
-        isGrounded=true;
-        physics.grounded();
+        isGrounded=val;
+        if (val)
+        {
+            physics.grounded();
+        }
     }
 }
