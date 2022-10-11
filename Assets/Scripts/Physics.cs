@@ -60,8 +60,6 @@ public class Physics : MonoBehaviour
     {
         acceleration += force;
     }
-
-    //A mettre dans addForce et changer applyGravity ???
     public void resetY()
     {
         acceleration.y = 0f;
@@ -78,18 +76,50 @@ public class Physics : MonoBehaviour
     //Function to call when colliding on the ground
     public void grounded()
     {
-        speed.y = 0f;
+        if (speed.y <= 0f)
+        {
+            speed.y = 0f;
+        }
+        speed.x = 0f;
     }
 
     //Function to call when colliding on the ceiling
     public void ceilingBlock()
     {
-        acceleration.y = 0f;
-        speed.y = 0f;
+        if (acceleration.y > 0f)
+        {
+            acceleration.y = 0f;
+        }
+        if (speed.y > 0f)
+        {
+            speed.y = 0f;
+        }
     }
-    public void wallBlock()
+    public void wallBlockRight()
     {
-        acceleration.x = 0f;
-        speed.x = 0f;
+       if (acceleration.x > 0)
+        {
+            Debug.Log("tititi");
+            acceleration.x = 0f;
+        }
+       if (speed.x > 0)
+        {
+            Debug.Log("tututu");
+            speed.x = 0f;
+        }
+    }
+
+    public void wallBlockLeft()
+    {
+        if (acceleration.x < 0)
+        {
+            Debug.Log("dididi");
+            acceleration.x = 0f;
+        }
+        if (speed.x < 0)
+        {
+            Debug.Log("dududu");
+            speed.x = 0f;
+        }
     }
 }
