@@ -33,7 +33,7 @@ public class CollisionManager : MonoBehaviour
                 Collision collision = playerHitbox.getCollisionInfo(candidate);
                 Vector2 n = collision.GetNormal();
                 Debug.Log("Collisions :" + candidate.getId());
-                if(n == new Vector2(0,1)){
+                if(n == new Vector2(0,1) && player.GetComponent<Physics>().speed.y <=0){
                     collideGround = true;
                     Vector3 playerPos = player.transform.position;
                     player.transform.position = new Vector3(playerPos.x, candidate.GetMax().y + playerHitbox.h / 2,0);
