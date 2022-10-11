@@ -22,19 +22,19 @@ public class Hitbox : MonoBehaviour
         HitboxManager.Instance.addHitbox(this);
         w = transform.localScale.x;
         h = transform.localScale.y;
-        xMin = transform.position.x - w/2 +0.01f;
-        xMax = transform.position.x + w/2 +0.01f;
+        xMin = transform.position.x - w / 2 - 0.01f;
+        xMax = transform.position.x + w / 2 + 0.01f;
         yMin = (transform.position.y - h/2) - 0.01f;
-        yMax = transform.position.y + h/2 -0.01f;
+        yMax = transform.position.y + h / 2;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        xMin = transform.position.x - w/2;
-        xMax = transform.position.x + w/2;
+        xMin = transform.position.x - w / 2 - 0.01f;
+        xMax = transform.position.x + w / 2 + 0.01f;
         yMin = (transform.position.y - h/2) - 0.01f;
-        yMax = transform.position.y + h/2;
+        yMax = transform.position.y + h / 2;
 
         Debug.DrawLine(new Vector3(xMin, yMin, 0), new Vector3(xMax, yMin, 0), Color.green);
         Debug.DrawLine(new Vector3(xMin, yMin, 0), new Vector3(xMin, yMax, 0), Color.green);
