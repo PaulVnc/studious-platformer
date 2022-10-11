@@ -12,6 +12,9 @@ public class Movement : MonoBehaviour
     [SerializeField] float wallJumpHorizontalForce = 100f;
     [SerializeField] float wallJumpVerticalForce = 200f;
     private Physics physics;
+
+    private float wallJumpDuration = 0.5f;
+    private float wallJumpCooldown = 0f;
      
 
 
@@ -24,10 +27,17 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveHorizontally(Input.GetAxis("Horizontal"));
-        if (Input.GetButtonDown("Jump"))
+        if (wallJumpCooldown < 0)
         {
-            jump();
+            moveHorizontally(Input.GetAxis("Horizontal"));
+            if (Input.GetButtonDown("Jump"))
+            {
+                jump();
+            }
+        }
+        else
+        {
+            wallJumpCooldown -= Time.deltaTime;
         }
     }
     void moveHorizontally(float direction)
@@ -41,6 +51,7 @@ public class Movement : MonoBehaviour
         {
             direction = 0;
         }
+        
         position.x += direction * playerSpeed * Time.deltaTime;
         transform.position = position;
     }
@@ -59,6 +70,7 @@ public class Movement : MonoBehaviour
         {
             if (!isGrounded && isCollidingLeftWall)
             {
+                wallJumpCooldown = wallJumpDuration;
                 physics.resetY();
                 Debug.Log("WallJump to the right");
                 stopWallColliding();
@@ -67,6 +79,7 @@ public class Movement : MonoBehaviour
             }
             if (!isGrounded && isCollidingRightWall)
             {
+                wallJumpCooldown = wallJumpDuration;
                 physics.resetY();
                 Debug.Log("WallJump to the left");
                 stopWallColliding();
