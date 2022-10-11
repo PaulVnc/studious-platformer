@@ -71,7 +71,7 @@ public class Physics : MonoBehaviour
     {
         if (!movement.isGrounded)
         {
-            addForce(new Vector3(0, -gravity, 0));
+             speed += new Vector3(0, -gravity, 0) * Time.fixedDeltaTime;
         }
     }
     
