@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float wallJumpVerticalForce = 200f;
     private Physics physics;
 
-    public float wallJumpDuration = 0.2f;
+    public float wallJumpDuration = 0.3f;
     public float wallJumpCooldown = 0f;
      
 
@@ -98,10 +98,13 @@ public class Movement : MonoBehaviour
     }
     public void setCollideLeftWall(bool val)
     {
-        if ((wallJumpCooldown + 0.05f < wallJumpDuration) && val)
+        if ((wallJumpCooldown + 0.1f < wallJumpDuration) && val)
         {
-            wallJumpCooldown = 0f;
-            Debug.Log("wallJump Left blocked");
+            if (wallJumpCooldown > 0f && wallJumpCooldown < wallJumpDuration)
+            {
+                wallJumpCooldown = 0f;
+                Debug.Log("Cooldown refreshed");
+            }
             physics.wallBlockLeft();
         }
 
@@ -109,10 +112,13 @@ public class Movement : MonoBehaviour
     }
     public void setCollideRightWall(bool val)
     {
-        if ((wallJumpCooldown + 0.05f < wallJumpDuration) && val)
+        if ((wallJumpCooldown + 0.1f < wallJumpDuration) && val)
         {
-            wallJumpCooldown = 0f;
-            Debug.Log("wallJump Right blocked");
+            if (wallJumpCooldown > 0f && wallJumpCooldown < wallJumpDuration)
+            {
+                wallJumpCooldown = 0f;
+                Debug.Log("Cooldown refreshed");
+            }
             physics.wallBlockRight();
         }
         isCollidingRightWall = val;
