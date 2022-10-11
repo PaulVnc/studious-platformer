@@ -11,7 +11,9 @@ public class Hitbox : MonoBehaviour
     [SerializeField]
     private float oldxMin, oldyMin, oldxMax, oldyMax;
     [SerializeField]
-    private float w,h;
+    public float w { get; private set; }
+    public float h { get; private set; }
+
     private int id;
     // Start is called before the first frame update
     void Start()
@@ -20,10 +22,10 @@ public class Hitbox : MonoBehaviour
         HitboxManager.Instance.addHitbox(this);
         w = transform.localScale.x;
         h = transform.localScale.y;
-        xMin = transform.position.x - w/2;
-        xMax = transform.position.x + w/2;
-        yMin = (transform.position.y - h/2) - 0.1f;
-        yMax = transform.position.y + h/2;
+        xMin = transform.position.x - w/2 +0.01f;
+        xMax = transform.position.x + w/2 +0.01f;
+        yMin = (transform.position.y - h/2) - 0.01f;
+        yMax = transform.position.y + h/2 -0.01f;
     }
 
     // Update is called once per frame
@@ -31,7 +33,7 @@ public class Hitbox : MonoBehaviour
     {
         xMin = transform.position.x - w/2;
         xMax = transform.position.x + w/2;
-        yMin = (transform.position.y - h/2) - 0.1f;
+        yMin = (transform.position.y - h/2) - 0.01f;
         yMax = transform.position.y + h/2;
 
         Debug.DrawLine(new Vector3(xMin, yMin, 0), new Vector3(xMax, yMin, 0), Color.green);
