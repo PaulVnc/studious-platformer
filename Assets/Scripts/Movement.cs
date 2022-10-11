@@ -38,6 +38,10 @@ public class Movement : MonoBehaviour
         else
         {
             wallJumpCooldown -= Time.deltaTime;
+            if (wallJumpCooldown <= 0)
+            {
+                stopWallJump();
+            }
         }
     }
     void moveHorizontally(float direction)
@@ -51,9 +55,11 @@ public class Movement : MonoBehaviour
         {
             direction = 0;
         }
-        
+
+
         position.x += direction * playerSpeed * Time.deltaTime;
         transform.position = position;
+       
     }
 
     void jump()
@@ -102,7 +108,7 @@ public class Movement : MonoBehaviour
         {
             if (wallJumpCooldown > 0f && wallJumpCooldown < wallJumpDuration)
             {
-                wallJumpCooldown = 0f;
+                stopWallJump();
                 Debug.Log("Cooldown refreshed");
             }
             physics.wallBlockLeft();
@@ -116,7 +122,7 @@ public class Movement : MonoBehaviour
         {
             if (wallJumpCooldown > 0f && wallJumpCooldown < wallJumpDuration)
             {
-                wallJumpCooldown = 0f;
+                stopWallJump();
                 Debug.Log("Cooldown refreshed");
             }
             physics.wallBlockRight();
@@ -139,5 +145,10 @@ public class Movement : MonoBehaviour
         {
             physics.grounded();
         }
+    }
+    private void stopWallJump()
+    {
+        wallJumpCooldown = 0;
+        physics.speed.x *= 0.5f;
     }
 }

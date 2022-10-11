@@ -9,6 +9,7 @@ public class Physics : MonoBehaviour
     public Vector3 acceleration;
     public Vector3 speed;
     private Movement movement;
+    float aerialDriftMax = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,10 @@ public class Physics : MonoBehaviour
     {
         applyGravity();
         speed +=  acceleration * Time.fixedDeltaTime;
+        if (!movement.isGrounded && speed.x > aerialDriftMax)
+        {
+            speed.x = aerialDriftMax;
+        } 
         transform.position += speed * Time.fixedDeltaTime;
         reduceSpeed();
         
@@ -122,4 +127,5 @@ public class Physics : MonoBehaviour
             speed.x = 0f;
         }
     }
+    
 }
