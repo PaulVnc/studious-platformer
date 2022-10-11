@@ -22,7 +22,7 @@ public class Hitbox : MonoBehaviour
         h = transform.localScale.y;
         xMin = transform.position.x - w/2;
         xMax = transform.position.x + w/2;
-        yMin = 1.1f*(transform.position.y - h/2);
+        yMin = (transform.position.y - h/2) - 0.1f;
         yMax = transform.position.y + h/2;
     }
 
@@ -31,8 +31,13 @@ public class Hitbox : MonoBehaviour
     {
         xMin = transform.position.x - w/2;
         xMax = transform.position.x + w/2;
-        yMin = 1.1f*(transform.position.y - h/2);
+        yMin = (transform.position.y - h/2) - 0.1f;
         yMax = transform.position.y + h/2;
+
+        Debug.DrawLine(new Vector3(xMin, yMin, 0), new Vector3(xMax, yMin, 0), Color.green);
+        Debug.DrawLine(new Vector3(xMin, yMin, 0), new Vector3(xMin, yMax, 0), Color.green);
+        Debug.DrawLine(new Vector3(xMax, yMax, 0), new Vector3(xMax, yMin, 0), Color.green);
+        Debug.DrawLine(new Vector3(xMax, yMax, 0), new Vector3(xMin, yMax, 0), Color.cyan);
     }
 
     public void updatePosition(){
