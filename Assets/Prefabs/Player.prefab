@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -3212224771122866667}
   - component: {fileID: 5608972788294925154}
   - component: {fileID: 3293700193035325491}
+  - component: {fileID: 7460871799469030500}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -101,8 +102,16 @@ MonoBehaviour:
   isGrounded: 1
   isCollidingLeftWall: 0
   isCollidingRightWall: 0
-  playerSpeed: 1
+  playerInitialSpeed: 5
+  playerMaxSpeed: 10
+  playerIncrementSpeed: 5
   jumpForce: 300
+  wallJumpHorizontalForce: 100
+  wallJumpVerticalForce: 200
+  maxAirDrift: 5
+  playerCurrentSpeed: 0
+  wallJumpDuration: 0.3
+  wallJumpCooldown: 0
 --- !u!114 &5608972788294925154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,3 +141,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 1
+  xMin: 0
+  yMin: 0
+  xMax: 0
+  yMax: 0
+  oldxMin: 0
+  oldyMin: 0
+  oldxMax: 0
+  oldyMax: 0
+--- !u!114 &7460871799469030500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296807538671203242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d455217e0d8be499d7bce796538a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deformThreshold: 0.2
+  deformAmount: 0.3
