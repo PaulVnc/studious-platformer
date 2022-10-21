@@ -27,16 +27,19 @@ public class Physics : MonoBehaviour
 
     void physicUpdate()
     {
-        applyGravity();
-        speed +=  acceleration * Time.fixedDeltaTime;
-        if (!movement.isGrounded && speed.x > aerialDriftMax)
+        if (!movement.isDashing)
         {
-            speed.x = aerialDriftMax;
-        } 
-        transform.position += speed * Time.fixedDeltaTime;
-        reduceSpeed();
-        
-        acceleration = Vector3.zero;
+            applyGravity();
+            speed += acceleration * Time.fixedDeltaTime;
+            if (!movement.isGrounded && Mathf.Abs(speed.x) > aerialDriftMax)
+            {
+                speed.x = Mathf.Sign(speed.x) * aerialDriftMax;
+            }
+            transform.position += speed * Time.fixedDeltaTime;
+            reduceSpeed();
+
+            acceleration = Vector3.zero;
+        }
     }
 
     float reduce(float coordinateToReduce)
@@ -104,12 +107,10 @@ public class Physics : MonoBehaviour
     {
        if (acceleration.x > 0)
         {
-            Debug.Log("tititi");
             acceleration.x = 0f;
         }
        if (speed.x > 0)
         {
-            Debug.Log("tututu");
             speed.x = 0f;
         }
     }
@@ -118,12 +119,10 @@ public class Physics : MonoBehaviour
     {
         if (acceleration.x < 0)
         {
-            Debug.Log("dididi");
             acceleration.x = 0f;
         }
         if (speed.x < 0)
         {
-            Debug.Log("dududu");
             speed.x = 0f;
         }
     }
