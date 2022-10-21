@@ -7,12 +7,16 @@ public class Movement : MonoBehaviour
     public bool isGrounded = true;
     public bool isCollidingLeftWall = false; //Boolean to change when colliding on a wall placed on the left
     public bool isCollidingRightWall = false; //Boolean to change when colliding on a wall placed on the right
-    [SerializeField] float playerSpeed = 1f;
+    [SerializeField] float playerInitialSpeed = 5f;
+    [SerializeField] float playerMaxSpeed = 10f;
+    [SerializeField] float playerIncrementSpeed = 5f;
     [SerializeField] float jumpForce = 300f;
     [SerializeField] float wallJumpHorizontalForce = 100f;
     [SerializeField] float wallJumpVerticalForce = 200f;
+    [SerializeField] float maxAirDrift = 5f;
     private Physics physics;
 
+    public float playerCurrentSpeed = 0f;
     public float wallJumpDuration = 0.3f;
     public float wallJumpCooldown = 0f;
      
@@ -46,7 +50,9 @@ public class Movement : MonoBehaviour
     }
     void moveHorizontally(float direction)
     {
+        
         Vector3 position = transform.position;
+
         if (isCollidingLeftWall && direction <0)
         {
             direction = 0;
@@ -55,9 +61,28 @@ public class Movement : MonoBehaviour
         {
             direction = 0;
         }
+        if (direction != 0f)
+        {
+            if (playerCurrentSpeed == 0f)
+            {
+                playerCurrentSpeed = playerInitialSpeed * Mathf.Sign(direction);
+            }
+            if (playerCurrentSpeed < playerMaxSpeed)
+            {
+                float newSpeed = playerCurrentSpeed + direction * Time.deltaTime * playerIncrementSpeed;
+                if (Mathf.Abs(newSpeed) >= playerMaxSpeed)
+                {
+                    newSpeed = Mathf.Sign(newSpeed) * playerMaxSpeed;
+                }
+                playerCurrentSpeed = newSpeed;
+            }
+        }
+        if (direction == 0f)
+        {
+            playerCurrentSpeed = 0f;
+        }
 
-
-        position.x += direction * playerSpeed * Time.deltaTime;
+        position.x += playerCurrentSpeed * Time.deltaTime;
         transform.position = position;
        
     }
