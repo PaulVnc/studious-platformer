@@ -7,18 +7,30 @@ public class Movement : MonoBehaviour
     public bool isGrounded = true;
     public bool isCollidingLeftWall = false; //Boolean to change when colliding on a wall placed on the left
     public bool isCollidingRightWall = false; //Boolean to change when colliding on a wall placed on the right
+
+
+    [Header("Player Speed")]
     [SerializeField] float playerInitialSpeed = 5f;
     [SerializeField] float playerMaxSpeed = 10f;
     [SerializeField] float playerIncrementSpeed = 5f;
+    float playerCurrentSpeed = 0f;
+    [Header("Player Air Movement")]
+    [SerializeField] float playerIncrementSpeedAir = 2.5f;
     [SerializeField] float jumpForce = 300f;
     [SerializeField] float wallJumpHorizontalForce = 100f;
     [SerializeField] float wallJumpVerticalForce = 200f;
-    [SerializeField] float maxAirDrift = 5f;
-    private Physics physics;
-
-    public float playerCurrentSpeed = 0f;
     public float wallJumpDuration = 0.3f;
     public float wallJumpCooldown = 0f;
+    [Header("Player Dash")]
+    [SerializeField] float dashSpeed = 15f;
+    [SerializeField] float dashDuration = 0.3f;
+    [SerializeField] float dashCooldown = 0.3f;
+    float directionFacing = 1;
+    public float dashTimer;
+    public float dashCooldownTimer;
+
+    private Physics physics;
+    public bool isDashing;
      
 
 
@@ -31,13 +43,32 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDashing)
+        {
+            dash();
+        }
+        if (dashCooldownTimer > 0)
+        {
+            dashCooldownTimer -= Time.deltaTime;
+        }
         if (wallJumpCooldown <= 0)
         {
-            moveHorizontally(Input.GetAxis("Horizontal"));
+            if (Input.GetButtonDown("Dash"))
+            {
+                startDash();
+            }
+            float direction = Input.GetAxisRaw("Horizontal");
+            moveHorizontally(Input.GetAxisRaw("Horizontal"));
+            if (direction != 0f) 
+            {
+                directionFacing = Mathf.Sign(direction);
+            }
+            
             if (Input.GetButtonDown("Jump"))
             {
                 jump();
             }
+            
         }
         else
         {
@@ -69,7 +100,16 @@ public class Movement : MonoBehaviour
             }
             if (playerCurrentSpeed < playerMaxSpeed)
             {
-                float newSpeed = playerCurrentSpeed + direction * Time.deltaTime * playerIncrementSpeed;
+                float incr;
+                if (isGrounded)
+                {
+                    incr = playerIncrementSpeed;
+                }
+                else
+                {
+                    incr = playerIncrementSpeedAir;
+                }
+                float newSpeed = playerCurrentSpeed + direction * Time.deltaTime * incr;
                 if (Mathf.Abs(newSpeed) >= playerMaxSpeed)
                 {
                     newSpeed = Mathf.Sign(newSpeed) * playerMaxSpeed;
@@ -86,7 +126,6 @@ public class Movement : MonoBehaviour
         transform.position = position;
        
     }
-
     void jump()
     {
         if (isGrounded)
@@ -96,11 +135,13 @@ public class Movement : MonoBehaviour
             physics.addForce(new Vector3(0, jumpForce, 0));
             
         }
-        //Wall jump to the right
+        
         else
         {
+            //Wall jump to the right
             if (!isGrounded && isCollidingLeftWall)
             {
+                directionFacing = 1;
                 wallJumpCooldown = wallJumpDuration;
                 physics.resetY();
                 Debug.Log("WallJump to the right");
@@ -108,14 +149,47 @@ public class Movement : MonoBehaviour
                 physics.addForce(new Vector3(wallJumpHorizontalForce, wallJumpVerticalForce, 0));
 
             }
+            //Wall jump to the left
             if (!isGrounded && isCollidingRightWall)
             {
+                directionFacing = -1;
                 wallJumpCooldown = wallJumpDuration;
                 physics.resetY();
                 Debug.Log("WallJump to the left");
                 stopWallColliding();
                 physics.addForce(new Vector3(-wallJumpHorizontalForce, wallJumpVerticalForce, 0));
 
+            }
+        }
+    }
+    void startDash()
+    {
+        if (dashCooldownTimer <= 0)
+        {
+            Debug.Log("StartDash");
+            dashTimer = dashDuration;
+            isDashing = true;
+        }
+
+
+    }
+    void dash()
+    {
+        if (dashTimer <= 0)
+        {//End of dash
+            isDashing = false;
+            dashCooldownTimer = dashCooldown;
+            physics.speed.x = 0f;
+            physics.speed.y = 0f;
+        }
+        if (isDashing)
+        {
+            dashTimer -= Time.deltaTime;
+            if (!isCollidingLeftWall && !isCollidingRightWall)
+            {
+                Vector3 position = transform.position;
+                position.x += dashSpeed * directionFacing * Time.deltaTime;
+                transform.position = position;
             }
         }
     }
