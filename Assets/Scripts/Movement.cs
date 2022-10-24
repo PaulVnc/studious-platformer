@@ -155,7 +155,7 @@ public class Movement : MonoBehaviour
             //Wall jump to the right
             if (!isGrounded && isCollidingLeftWall)
             {
-                directionFacing = 1;
+                
                 wallJumpCooldown = wallJumpDuration;
                 physics.resetY();
                 Debug.Log("WallJump to the right");
@@ -166,7 +166,7 @@ public class Movement : MonoBehaviour
             //Wall jump to the left
             if (!isGrounded && isCollidingRightWall)
             {
-                directionFacing = -1;
+                
                 wallJumpCooldown = wallJumpDuration;
                 physics.resetY();
                 Debug.Log("WallJump to the left");

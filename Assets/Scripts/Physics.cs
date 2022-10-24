@@ -11,7 +11,6 @@ public class Physics : MonoBehaviour
     public Vector3 speed;
     private Movement movement;
     float aerialDriftMax = 10f;
-    private bool needTeleport = false;
 
     
 
@@ -44,12 +43,7 @@ public class Physics : MonoBehaviour
 
             acceleration = Vector3.zero;
         }
-        if(needTeleport)
-        {
-            transform.position = new Vector3(-22.5f, 14f);
-            speed = Vector2.zero;
-            needTeleport = false;
-        }
+        
     }
 
     float reduce(float coordinateToReduce)
@@ -136,9 +130,5 @@ public class Physics : MonoBehaviour
             speed.x = 0f;
         }
     }
-    public void teleport()
-    {
-        needTeleport = true;
-        
-    }
+   
 }
