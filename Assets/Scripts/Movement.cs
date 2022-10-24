@@ -34,6 +34,8 @@ public class Movement : MonoBehaviour
     public bool isDashing;
     [Header("Level")] 
     [SerializeField] bool isOnLevel = true;
+
+    float dashCounter = 3;
     
      
 
@@ -176,8 +178,12 @@ public class Movement : MonoBehaviour
     }
     void startDash()
     {
-        if (dashCooldownTimer <= 0)
+        if (dashCooldownTimer <= 0 && dashCounter >0)
         {
+            if (!isGrounded)
+            {
+                dashCounter -= 1;
+            }
             Debug.Log("StartDash");
             dashTimer = dashDuration;
             isDashing = true;
@@ -187,6 +193,7 @@ public class Movement : MonoBehaviour
     }
     void dash()
     {
+
         if (dashTimer <= 0)
         {//End of dash
             endDash();
@@ -268,6 +275,7 @@ public class Movement : MonoBehaviour
         isGrounded=val;
         if (val)
         {
+            dashCounter = 3;
             physics.grounded();
         }
     }
