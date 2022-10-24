@@ -28,9 +28,13 @@ public class Movement : MonoBehaviour
     float directionFacing = 1;
     public float dashTimer;
     public float dashCooldownTimer;
-
+    float lastDashXSize;
+    bool isEndDashing;
     private Physics physics;
     public bool isDashing;
+    [Header("Level")] 
+    [SerializeField] bool isOnLevel = true;
+    
      
 
 
@@ -43,32 +47,36 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDashing)
-        {
-            dash();
-        }
         if (dashCooldownTimer > 0)
         {
             dashCooldownTimer -= Time.deltaTime;
         }
         if (wallJumpCooldown <= 0)
         {
-            if (Input.GetButtonDown("Dash"))
+            if (!isDashing)
             {
-                startDash();
+
+
+                if (Input.GetButtonDown("Dash"))
+                {
+                    startDash();
+                }
+                float direction = Input.GetAxisRaw("Horizontal");
+                moveHorizontally(Input.GetAxisRaw("Horizontal"));
+                if (direction != 0f)
+                {
+                    directionFacing = Mathf.Sign(direction);
+                }
+
+                if (Input.GetButtonDown("Jump"))
+                {
+                    jump();
+                }
             }
-            float direction = Input.GetAxisRaw("Horizontal");
-            moveHorizontally(Input.GetAxisRaw("Horizontal"));
-            if (direction != 0f) 
+            else
             {
-                directionFacing = Mathf.Sign(direction);
+                dash();
             }
-            
-            if (Input.GetButtonDown("Jump"))
-            {
-                jump();
-            }
-            
         }
         else
         {
@@ -89,6 +97,10 @@ public class Movement : MonoBehaviour
             direction = 0;
         }
         if (isCollidingRightWall && direction > 0)
+        {
+            direction = 0;
+        }
+        if (Mathf.Sign(direction) != Mathf.Sign(playerCurrentSpeed) && playerCurrentSpeed != 0f)
         {
             direction = 0;
         }
@@ -177,10 +189,7 @@ public class Movement : MonoBehaviour
     {
         if (dashTimer <= 0)
         {//End of dash
-            isDashing = false;
-            dashCooldownTimer = dashCooldown;
-            physics.speed.x = 0f;
-            physics.speed.y = 0f;
+            endDash();
         }
         if (isDashing)
         {
@@ -188,10 +197,27 @@ public class Movement : MonoBehaviour
             if (!isCollidingLeftWall && !isCollidingRightWall)
             {
                 Vector3 position = transform.position;
-                position.x += dashSpeed * directionFacing * Time.deltaTime;
+                lastDashXSize = dashSpeed * directionFacing * Time.deltaTime;
+                position.x += lastDashXSize;
                 transform.position = position;
             }
+            else
+            { //C'est plus un pansement c'est un platre
+                transform.position = new Vector3(transform.position.x - lastDashXSize / 3, transform.position.y);
+
+
+                endDash();
+                moveHorizontally(directionFacing);
+            }
         }
+    }
+
+    void endDash()
+    {
+        isDashing = false;
+        dashCooldownTimer = dashCooldown;
+        physics.speed.x = 0f;
+        physics.speed.y = 0f;
     }
     void changeGrounded()
     {

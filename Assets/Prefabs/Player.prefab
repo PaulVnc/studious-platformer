@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5131099932959919515
 MeshFilter:
@@ -100,18 +100,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 1
-  isCollidingLeftWall: 0
+  isCollidingLeftWall: 1
   isCollidingRightWall: 0
   playerInitialSpeed: 5
   playerMaxSpeed: 10
   playerIncrementSpeed: 5
-  jumpForce: 300
-  wallJumpHorizontalForce: 100
-  wallJumpVerticalForce: 200
-  maxAirDrift: 5
-  playerCurrentSpeed: 0
+  playerIncrementSpeedAir: 2.5
+  jumpForce: 500
+  wallJumpHorizontalForce: 300
+  wallJumpVerticalForce: 400
   wallJumpDuration: 0.3
   wallJumpCooldown: 0
+  dashSpeed: 15
+  dashDuration: 0.3
+  dashCooldown: 0.3
+  dashTimer: 0
+  dashCooldownTimer: 0
+  isDashing: 0
 --- !u!114 &5608972788294925154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992fb4a7e93869d46b2a14bff29520d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 10
+  gravity: 25
   constantAcceleration: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   speed: {x: 0, y: 0, z: 0}
