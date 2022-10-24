@@ -147,7 +147,8 @@ public class Movement : MonoBehaviour
             Debug.Log("Jump");
             changeGrounded();
             physics.addForce(new Vector3(0, jumpForce, 0));
-            
+
+            MenuManager.instance.playSFX("jump");
         }
         
         else
@@ -162,6 +163,7 @@ public class Movement : MonoBehaviour
                 stopWallColliding();
                 physics.addForce(new Vector3(wallJumpHorizontalForce, wallJumpVerticalForce, 0));
 
+                MenuManager.instance.playSFX("jump");
             }
             //Wall jump to the left
             if (!isGrounded && isCollidingRightWall)
@@ -173,6 +175,7 @@ public class Movement : MonoBehaviour
                 stopWallColliding();
                 physics.addForce(new Vector3(-wallJumpHorizontalForce, wallJumpVerticalForce, 0));
 
+                MenuManager.instance.playSFX("jump");
             }
         }
     }
@@ -187,6 +190,7 @@ public class Movement : MonoBehaviour
             Debug.Log("StartDash");
             dashTimer = dashDuration;
             isDashing = true;
+            MenuManager.instance.playSFX("dash");
         }
 
 

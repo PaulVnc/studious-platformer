@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
     public GameObject menu;
     public static MenuManager instance;
     public AudioSource source;
+    private int selectedLevel = 1;
     private bool gamePaused;
+    
 
     //SFXs
     [System.Serializable]
@@ -57,6 +60,21 @@ public class MenuManager : MonoBehaviour
         }
         source.loop = false;
         source.Play();
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(selectedLevel);
+    }
+
+    public void GoToMainMenu()
+    {
+        Resume();
+        SceneManager.LoadScene(0);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     public void SetVolume(float val)
