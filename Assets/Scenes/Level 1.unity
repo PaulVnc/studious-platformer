@@ -266,7 +266,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'R2 or LeftShift
+  m_text: 'RB or LeftShift
 
     ------------->'
   m_isRightToLeft: 0
